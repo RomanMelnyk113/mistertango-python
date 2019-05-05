@@ -9,7 +9,7 @@ from urllib.parse import urlencode
 
 import requests
 
-from mistertango import PaymentException
+from . import PaymentException
 
 DEFAULT_BASE_URL = 'https://api.mistertango.com:8445'
 SUPPORTED_CURRENCIES = ['EUR']
@@ -94,15 +94,17 @@ class Mistertango:
 
         return result
 
-    def send_money(self, amount: float, currency: str, recipient: str, account: str, details: str):
+    def send_money(self, amount: float, currency: str, recipient: str, account: str,
+                   details: str) -> dict:
         '''
+        Transfer money from merchant account to recipient account
 
-        :param amount:
-        :param currency:
-        :param recipient:
-        :param account:
-        :param details:
-        :return:
+        :param amount: Amount of money
+        :param currency: Currency (only EUR is available)
+        :param recipient: Name of the recipient
+        :param account: IBAN account number of recipient
+        :param details: Details (description) of the transfer
+        :return: Mistertango API response
 
         Example: {
             "status": true,
